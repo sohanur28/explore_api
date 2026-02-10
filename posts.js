@@ -4,32 +4,30 @@ const loadPost = () => {
         .then(res => res.json())
         .then(data => {
             // console.log(data);
-            displayPost(data);
+            displayPosts(data);
         });
 };
-     // array of object
-const displayPost = (posts) => {
-
-    // 1. get the container
-    const postContainer = document.getElementById("post-container");
-    // console.log(postContainer)
-
+// {
+//     "userId": 4,
+//     "id": 39,
+//     "title": "eos dolorem iste accusantium est eaque quam",
+//     "body": "corporis rerum ducimus vel eum accusantium\nmaxime aspernatur a porro possimus iste omnis\nest in deleniti asperiores fuga aut\nvoluptas sapiente vel dolore minus voluptatem incidunt ex"
+// }
+const displayPosts = (posts) => {
+    // 1. get the container and empty the container
+    const postsContainer = document.getElementById("post-container");
+    postsContainer.innerHTML = "";
     posts.forEach(post => {
-        // console.log(post.title)
+        // 2. create element
+        const postCard = document.createElement("div");
+        postCard.innerHTML = `<div class="post-card">
+            <h2>${post.title}</h2>
+            <p>${post.body}</p>
+        </div>`;
 
-        // 2. create HTML element
-        const li= document.createElement('li');
-        li.innerText=post.title;
-        // console.log(li);
-
-        // 3. add li into container
-        postContainer.appendChild(li);
+        // 3. add to the container
+        postsContainer.append(postCard)
     });
+};
 
-    // for (let i = 0; i < posts.length; i++) {
-    //     console.log(posts[i])
-    // }
-    // for(let post of posts){
-    //     console.log(post)
-    // }
-}
+loadPost();
